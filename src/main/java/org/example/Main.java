@@ -7,6 +7,7 @@ public class Main {
         Node node_3 = new Node(7, null);
         Node node_x = new Node(2, null);
         Node node_xx = new Node(3, null);
+        Node node_xxx = new Node(66, null);
 
         LinkedList list = new LinkedList();
 
@@ -16,6 +17,11 @@ public class Main {
 
         list.addFirst(node_x);
         list.addFirst(node_xx);
+
+        list.addIndex(node_xxx, 2);
+        list.deleteLast();
+
+        list.removeIndex(2);
 
         list.display();
 
