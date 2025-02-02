@@ -125,4 +125,21 @@ public class LinkedList {
         }
     }
 
+    public void rev() {
+        Node prev = null;
+        Node curr = this.head;
+
+        while (curr != null) {
+            Node temp = curr.getNext();
+            curr.setNext(prev);
+
+            prev = curr;
+            curr = temp;
+
+        }
+
+        this.head = prev;
+
+    }
+
 }
