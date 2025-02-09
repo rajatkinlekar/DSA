@@ -87,6 +87,24 @@ public class LinkedList {
         recDisplay(temp.getNext());
     }
 
+    public Node recursiveInsertNode(Node node, int index, Node iterator) {
+        if (index == 0) {
+            node.setNext(iterator);
+
+            // If this is the first call, update head
+            if (iterator == this.head) {
+                this.head = node;
+            }
+
+            this.size++;
+            return node;
+        }
+
+        iterator.setNext(recursiveInsertNode(node, index - 1, iterator.getNext()));
+
+        return iterator;
+    }
+
     public void deleteLast() {
         if (this.size == 0) {
             return;
