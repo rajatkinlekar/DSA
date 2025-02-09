@@ -76,6 +76,17 @@ public class LinkedList {
         System.out.println("null");
     }
 
+    public void recDisplay(Node temp) {
+        // base condition
+        if (temp == null) {
+            System.out.println("null");
+            return;
+        }
+
+        System.out.print(temp.getValue() + " --> ");
+        recDisplay(temp.getNext());
+    }
+
     public void deleteLast() {
         if (this.size == 0) {
             return;
@@ -139,6 +150,45 @@ public class LinkedList {
         }
 
         this.head = prev;
+
+    }
+
+    public void removeElements(int val) {
+
+        int i = 0;
+
+        // empty list
+        if (this.head == null) {
+            return;
+        }
+
+        Node iterator = this.head;
+        Node temp = null;
+
+        while (iterator.getNext() != null) {
+            if (iterator.getValue() != val) {
+
+                if (i == 0) {
+                    this.head = iterator;
+                }
+
+                temp = iterator.getNext();
+                while (temp != null) {
+                    if (temp.getValue() != val) {
+                        iterator.setNext(temp);
+                        iterator = temp;
+                        break;
+                    }
+                    temp = temp.getNext();
+                }
+                i++;
+            } else {
+                iterator = iterator.getNext();
+            }
+
+
+        }
+
 
     }
 
