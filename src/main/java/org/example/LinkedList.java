@@ -206,8 +206,53 @@ public class LinkedList {
 
 
         }
-
-
     }
+
+
+    public Node recursiveReverse(Node iterator) {
+        if (iterator.getNext() == null) {
+            this.head = iterator;
+            return iterator;
+        }
+
+        recursiveReverse(iterator.getNext());
+
+        iterator.getNext().setNext(iterator);
+        iterator.setNext(null);
+
+        return this.head;
+    }
+
+    public void removeDuplicated() {
+        Node temp = this.head;
+
+        while (temp != null && temp.getNext() != null) {
+            while (temp.getNext() != null && temp.getNext().getValue() == temp.getValue()) {
+                temp.setNext(temp.getNext().getNext());
+                this.size--;
+            }
+            temp = temp.getNext();
+        }
+    }
+
+
+    // contains errors
+    public Node recursiveRemoveDuplicates(Node iterator) {
+        if (iterator.getNext() == null) {
+            return iterator;
+        }
+
+        Node temp = recursiveRemoveDuplicates(iterator.getNext());
+
+        if (iterator.getValue() == temp.getValue()) {
+            iterator.setNext(temp.getNext());
+        }
+
+        return iterator;
+    }
+
+
+
+
 
 }
