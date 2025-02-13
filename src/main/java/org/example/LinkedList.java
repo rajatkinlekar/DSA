@@ -252,7 +252,65 @@ public class LinkedList {
     }
 
 
+    public Node sortList() {
+        // create a dummy node
+        Node dummy = new Node(-1);
 
+        // create a temp node equals to dummy
+        Node temp = dummy;
+
+        while (this.head != null) {
+            // get the min node in the current list
+            Node minNode = getMinNode(this.head);
+
+            // point next of temp node to the min node and make temp equals to this minNode
+            temp.setNext(minNode);
+            temp = minNode;
+
+            // remove the minNode from the list
+            removeNode(minNode);
+        }
+
+        this.head = dummy.getNext();
+        return dummy.getNext();
+
+    }
+
+    // helper functions getMinNode() & removeNode()
+
+
+    public Node getMinNode(Node head) {
+        Node minNode = new Node(Integer.MAX_VALUE);
+        Node iterator = head;
+
+        while (iterator != null) {
+            if (iterator.getValue() < minNode.getValue()) {
+                minNode = iterator;
+            }
+            iterator = iterator.getNext();
+        }
+
+        return minNode;
+    }
+
+    public void removeNode(Node target) {
+        Node iterator = this.head;
+
+        if (target == this.head) {
+            this.head = this.head.getNext();
+            target.setNext(null);
+        }
+
+        while (iterator != null) {
+            if (iterator.getNext() == target) {
+                iterator.setNext(target.getNext());
+                target.setNext(null);
+                break;
+            }
+
+            iterator = iterator.getNext();
+        }
+    }
 
 
 
