@@ -2,6 +2,8 @@ package org.example;
 
 public class Concepts {
 
+    private int value = 0;
+
     public Node mergeTwoLists(Node head1, Node head2) {
         Node t1 = head1;
         Node t2 = head2;
@@ -30,5 +32,7 @@ public class Concepts {
 
         return dummy.getNext();
     }
+
+
 
 }
