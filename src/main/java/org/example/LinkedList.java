@@ -1,5 +1,7 @@
 package org.example;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Stack;
 
 public class LinkedList {
@@ -13,6 +15,10 @@ public class LinkedList {
     }
 
     public void add(Node node) {
+//        if (this.head == null) {
+//            return;
+//        }
+
         if (this.size == 0) {
             this.head = node;
             this.tail = node;
@@ -73,7 +79,7 @@ public class LinkedList {
     public void display() {
         Node node = head;
         while (node != null) {
-            System.out.print(node.getValue() + " --> ");
+            System.out.print("(" + node.getValue() + ") --> ");
             node = node.getNext();
         }
         System.out.println("null");
@@ -388,5 +394,111 @@ public class LinkedList {
 
     }
 
+    // reverse linked list 2
+
+    public void reverseLL2(int left, int right) {
+        if (left == right || this.head == null) return;
+
+        Node prevLeft = new Node();
+        Node rightNext = new Node();
+        Node l = new Node();
+        Node r = new Node();
+
+
+        prevLeft.setNext(this.head);
+
+        for (int i = 1; i < left; i++) {
+            prevLeft = prevLeft.getNext();
+        }
+
+        l = prevLeft.getNext();
+        r = l;
+
+        for (int i = left; i < right; i++) {
+            r = r.getNext();
+        }
+
+        rightNext = r.getNext();
+
+        Node newHead = helper(l, 0, left, right);
+
+        // set prevLeft.next = newHead
+        if (left != 1) {
+            prevLeft.setNext(newHead);
+        } else {
+            this.head = newHead;
+        }
+
+        // set left.next = right.next
+        l.setNext(rightNext);
+
+    }
+
+    // helper function
+    public Node helper(Node head, int c, int left, int right) {
+        if (c == (right - left)) {
+            return head;
+        }
+
+        Node newHead = helper(head.getNext(), c+1, left, right);
+        head.getNext().setNext(head);
+        head.setNext(null);
+        return newHead;
+    }
+
+    public void rotateList(int k) {
+
+        for (int i = 0; i < k; i++) {
+            Node temp = this.head;
+            while(temp != null) {
+                if (temp.getNext().getNext() == null) {
+                    Node temp2 = temp.getNext();
+                    temp.setNext(null);
+                    temp2.setNext(this.head);
+                    this.head = temp2;
+                    break;
+                }
+                temp = temp.getNext();
+            }
+        }
+    }
+
+    public void rotateList2(int k) {
+
+        if (this.head == null || this.head.getNext() == null) {
+            return;
+        }
+
+        Node left = new Node();
+        Node right = new Node();
+        Node joiningToHeadNode = new Node();
+
+        left.setNext(this.head);
+        right.setNext(this.head);
+
+
+       while (k > this.size) {
+           k -= this.size;
+       }
+
+        for (int i = 0; i <= k; i++) {
+            right = right.getNext();
+        }
+
+        while (right != null) {
+            left = left.getNext();
+
+            if (right.getNext() == null) {
+                joiningToHeadNode = right;
+            }
+
+            right = right.getNext();
+        }
+
+        joiningToHeadNode.setNext(this.head);
+        this.head = left.getNext();
+        left.setNext(null);
+
+    }
 
 }

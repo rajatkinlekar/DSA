@@ -2,20 +2,34 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        Node node_1 = new Node(9);
-        Node node_2 = new Node(9);
-        Node node_3 = new Node(9);
-        Node node_4 = new Node(9);
+        ListNode node_1 = new ListNode(1);
+        ListNode node_2 = new ListNode(2);
+        ListNode node_3 = new ListNode(3);
+        ListNode node_4 = new ListNode(4);
+        ListNode node_5 = new ListNode(5);
+        ListNode node_6 = new ListNode(6);
+        ListNode node_7 = new ListNode(7);
+        ListNode node_8 = new ListNode(8);
 
-        LinkedList list = new LinkedList();
 
-        list.add(node_1);
-        list.add(node_2);
-        list.add(node_3);
-        list.add(node_4);
+        LinkedList2 list = new LinkedList2();
+        LinkedList2 list2 = new LinkedList2();
+
+        list.addNode(node_1);
+        list.addNode(node_2);
+        list.addNode(node_3);
+        list.addNode(node_4);
+        list.addNode(node_5);
+        // -----------------------
+        list2.addNode(node_6);
+        list2.addNode(node_7);
+        list2.addNode(node_8);
+
+        list.addChild(node_3, list2);
 
         list.display();
-        list.addOne(node_1);
+
+        list.flatten();
         list.display();
 
 
