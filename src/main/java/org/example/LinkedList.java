@@ -501,4 +501,67 @@ public class LinkedList {
 
     }
 
+    public Node addTwoNumbers(Node l1, Node l2) {
+        int sum = 0;
+        int carry = 0;
+        Node dummy = new Node(0); // 2 4 9 9
+        boolean isRequiredCarryNode = false;
+        Node temp = dummy;               // 5 6 4
+
+        while (l1 != null || l2 != null) {
+            sum = 0;
+            isRequiredCarryNode = false;
+
+            if (l1 != null && l2 != null) {
+                sum = l1.getValue() + l2.getValue() + carry;
+
+                if (sum > 9) {
+                    isRequiredCarryNode = true;
+                }
+
+                carry = sum > 9 ? sum/10 : 0;
+                sum = sum > 9 ? sum%10 : sum;
+
+                l1 = l1.getNext();
+                l2 = l2.getNext();
+            } else if (l1 != null && l2 == null) {
+                sum = l1.getValue() + carry;
+
+                if (sum > 9) {
+                    isRequiredCarryNode = true;
+                }
+
+                carry = sum > 9 ? sum/10 : 0;
+                sum = sum > 9 ? sum%10 : sum;
+
+                l1 = l1.getNext();
+            } else  {
+                sum = l2.getValue() + carry;
+
+                if (sum > 9) {
+                    isRequiredCarryNode = true;
+                }
+
+                carry = sum > 9 ? sum/10 : 0;
+                sum = sum > 9 ? sum%10 : sum;
+
+                l2 = l2.getNext();
+            }
+
+
+            Node node = new Node(sum);
+            temp.setNext(node);
+            temp = node;
+
+
+        }
+
+        if (isRequiredCarryNode) {
+            Node node = new Node(carry);
+            temp.setNext(node);
+        }
+
+        return dummy.getNext();
+    }
+
 }
