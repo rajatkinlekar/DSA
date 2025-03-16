@@ -504,64 +504,68 @@ public class LinkedList {
     public Node addTwoNumbers(Node l1, Node l2) {
         int sum = 0;
         int carry = 0;
-        Node dummy = new Node(0); // 2 4 9 9
-        boolean isRequiredCarryNode = false;
-        Node temp = dummy;               // 5 6 4
+        Node dummy = new Node(0);
+        Node temp = dummy;
 
-        while (l1 != null || l2 != null) {
-            sum = 0;
-            isRequiredCarryNode = false;
+        while (l1 != null || l2 != null || carry > 0) {
+            sum = carry;
 
-            if (l1 != null && l2 != null) {
-                sum = l1.getValue() + l2.getValue() + carry;
-
-                if (sum > 9) {
-                    isRequiredCarryNode = true;
-                }
-
-                carry = sum > 9 ? sum/10 : 0;
-                sum = sum > 9 ? sum%10 : sum;
-
+            if (l1 != null) {
+                sum += l1.getValue();
                 l1 = l1.getNext();
-                l2 = l2.getNext();
-            } else if (l1 != null && l2 == null) {
-                sum = l1.getValue() + carry;
+            }
 
-                if (sum > 9) {
-                    isRequiredCarryNode = true;
-                }
-
-                carry = sum > 9 ? sum/10 : 0;
-                sum = sum > 9 ? sum%10 : sum;
-
-                l1 = l1.getNext();
-            } else  {
-                sum = l2.getValue() + carry;
-
-                if (sum > 9) {
-                    isRequiredCarryNode = true;
-                }
-
-                carry = sum > 9 ? sum/10 : 0;
-                sum = sum > 9 ? sum%10 : sum;
-
+            if (l2 != null) {
+                sum += l2.getValue();
                 l2 = l2.getNext();
             }
 
+            carry = sum/10;
+            Node node = new Node(sum % 10);
 
-            Node node = new Node(sum);
             temp.setNext(node);
             temp = node;
 
-
-        }
-
-        if (isRequiredCarryNode) {
-            Node node = new Node(carry);
-            temp.setNext(node);
         }
 
         return dummy.getNext();
+    }
+
+    public void swapPairs() {
+
+        Node temp1 = this.head;
+        Node finalHead = new Node();
+        int c = 1;
+
+        if (this.head == null) {
+            return;
+        }
+
+        if (this.head.getNext() == null) {
+            return;
+        }
+
+        while (temp1 != null && temp1.getNext() != null) {
+
+           if (c == 1) {
+               finalHead = temp1.getNext();
+           }
+
+            Node temp2 = temp1.getNext().getNext();
+            temp1.getNext().setNext(temp1);
+
+            if (temp2 != null && temp2.getNext() != null) {
+                temp1.setNext(temp2.getNext());
+            } else {
+                temp1.setNext(temp2);
+            }
+
+            temp1 = temp2;
+            c++;
+        }
+
+        this.head = finalHead;
+
     }
 
 }
